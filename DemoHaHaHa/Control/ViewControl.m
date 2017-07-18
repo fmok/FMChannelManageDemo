@@ -25,7 +25,7 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"\n arr: \n %@ \n", self.vc.subDataArr);
+    
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -53,6 +53,7 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
     } else {
         titleStr = self.vc.unSubDataArr[indexPath.section-2][indexPath.item];
         [cell updateContent:titleStr];
+        cell.currentType = MyCollectionViewCellTypeAdd;
     }
     return cell;
 }
@@ -115,11 +116,16 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 #pragma mark - FMCollectionViewFlowLayoutDelegate
 - (void)moveDataItem:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    //    [self.subDataArr exchangeObjectAtIndex:toIndexPath.item withObjectAtIndex:fromIndexPath.item];
+    if (toIndexPath.section > 0) return;
     NSObject *obj = self.vc.subDataArr[fromIndexPath.item];
     [self.vc.subDataArr removeObjectAtIndex:fromIndexPath.item];
     [self.vc.subDataArr insertObject:obj atIndex:toIndexPath.item];
     NSLog(@"\n*** subDataArr exchange %@ & %@ : ***\n %@ \n", @(fromIndexPath.item), @(toIndexPath.item), self.vc.subDataArr);
+}
+
+- (void)beginResponseToLongPress
+{
+    
 }
 
 

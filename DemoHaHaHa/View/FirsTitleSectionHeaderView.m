@@ -86,10 +86,14 @@
     _currentStyle = currentStyle;
     switch (currentStyle) {
         case FirsTitleSectionHeaderViewStyleNormal:
+        {
             self.editBtn.hidden = YES;
+        }
             break;
         case FirsTitleSectionHeaderViewStyleEdit:
+        {
             self.editBtn.hidden = NO;
+        }
             break;
         default:
             break;

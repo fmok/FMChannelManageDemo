@@ -10,6 +10,7 @@
 
 @protocol FMCollectionViewFlowLayoutDelegate <NSObject>
 
+- (void)beginResponseToLongPress;
 - (void)moveDataItem:(NSIndexPath*)fromIndexPath toIndexPath:(NSIndexPath*)toIndexPath;
 
 @end

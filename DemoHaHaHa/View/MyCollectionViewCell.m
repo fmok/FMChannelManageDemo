@@ -11,6 +11,7 @@
 @interface MyCollectionViewCell()
 
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImageView *imgView;
 
 @end
 
@@ -24,6 +25,8 @@
         self.layer.borderColor = [UIColor grayColor].CGColor;
         self.layer.borderWidth = 0.5;
         [self addSubview:self.titleLabel];
+        [self addSubview:self.imgView];
+        self.currentType = MyCollectionViewCellTypeDefault;
     }
     return self;
 }
@@ -32,7 +35,12 @@
 {
     WS(weakSelf);
     [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(weakSelf);
+        make.left.equalTo(weakSelf).offset(5);
+        make.centerY.equalTo(weakSelf);
+    }];
+    [self.imgView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf).offset(-5);
+        make.centerY.equalTo(weakSelf);
     }];
     [super updateConstraints];
 }
@@ -44,6 +52,33 @@
     [self setNeedsUpdateConstraints];
 }
 
+#pragma mark - Private methods
+- (void)setImg:(MyCollectionViewCellType)type
+{
+    switch (type) {
+        case MyCollectionViewCellTypeDefault:
+        {
+            self.imgView.hidden = YES;
+        }
+            break;
+        case MyCollectionViewCellTypeAdd:
+        {
+            self.imgView.hidden = NO;
+            [self.imgView setImage:[UIImage imageNamed:@"add_channel"]];
+        }
+            break;
+        case MyCollectionViewCellTypeMul:
+        {
+            self.imgView.hidden = NO;
+            [self.imgView setImage:[UIImage imageNamed:@"mul_channel"]];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 #pragma mark - getter & setter
 - (UILabel *)titleLabel
 {
@@ -52,6 +87,19 @@
         _titleLabel.textAlignment = NSTextAlignmentLeft;
     }
     return _titleLabel;
+}
+
+- (UIImageView *)imgView
+{
+    if (!_imgView) {
+        _imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    }
+    return _imgView;
+}
+
+- (void)setCurrentType:(MyCollectionViewCellType)currentType
+{
+    [self setImg:currentType];
 }
 
 @end

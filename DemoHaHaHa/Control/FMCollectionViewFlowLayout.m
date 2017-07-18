@@ -71,6 +71,9 @@
     switch (longPress.state) {
         case UIGestureRecognizerStateBegan:
         {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(beginResponseToLongPress)]) {
+                [self.delegate beginResponseToLongPress];
+            }
             CGPoint location = [longPress locationInView:self.collectionView];
             NSIndexPath* indexPath = [self.collectionView indexPathForItemAtPoint:location];
             if (!indexPath) return;
