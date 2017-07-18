@@ -53,6 +53,7 @@
 - (void)editAction:(UIButton *)sender
 {
     sender.selected = !sender.selected;
+    
 }
 
 #pragma mark - getter & setter

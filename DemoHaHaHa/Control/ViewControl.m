@@ -48,6 +48,7 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
     if (indexPath.section == 0) {
         titleStr = self.vc.subDataArr[indexPath.item];
         [cell updateContent:titleStr];
+        cell.currentType = MyCollectionViewCellTypeMul;
     } else if (indexPath.section == 1) {
         cell = nil;
     } else {
