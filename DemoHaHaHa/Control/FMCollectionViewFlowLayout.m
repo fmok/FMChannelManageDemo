@@ -7,14 +7,12 @@
 //
 
 #import "FMCollectionViewFlowLayout.h"
-#import "MainViewController.h"
 
 @interface FMCollectionViewFlowLayout()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
 @property (nonatomic, strong) NSIndexPath *currentIndexPath;    //当前的IndexPath
 @property (nonatomic, strong) UIView *mappingImageCell;         //拖动cell的截图
-@property (nonatomic, weak) MainViewController *vc;
 
 @end
 
