@@ -34,7 +34,43 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    MyCollectionViewCell *cell = (MyCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    NSLog(@"\n*** cellType: %@ ***\n", @(cell.currentType));
+    switch (cell.currentType) {
+        case MyCollectionViewCellTypeDefault:
+        {
+            // 无
+        }
+            break;
+        case MyCollectionViewCellTypeAdd:
+        {
+            // 订阅频道
+            NSInteger sectionIndex = indexPath.section - 2;
+            NSMutableArray *tArr = [NSMutableArray arrayWithArray:self.vc.unSubDataArr[sectionIndex]];
+            NSLog(@"\n*** section: %@ , item: %@ , data: %@ ***\n", @(indexPath.section), @(indexPath.item), tArr[indexPath.item]);
+            // 1、更新本地数据源
+            [self.vc.subDataArr addObject:tArr[indexPath.item]];
+            [tArr removeObjectAtIndex:indexPath.item];
+            [self.vc.unSubDataArr replaceObjectAtIndex:sectionIndex withObject:tArr];
+            // 2、同步远端数据
+            // 3、更新UI
+            [self.vc.collectionView reloadData];
+        }
+            break;
+        case MyCollectionViewCellTypeMul:
+        {
+            // 取消订阅
+            NSLog(@"\n&&& section: %@ , item: %@ , data: %@ &&&\n", @(indexPath.section), @(indexPath.item), self.vc.subDataArr[indexPath.item]);
+            // 1、更新本地数据源
+            [self.vc.subDataArr removeObjectAtIndex:indexPath.item];
+            // 2、同步远端数据
+            // 3、更新UI
+            [self.vc.collectionView reloadData];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - UICollectionViewDataSource

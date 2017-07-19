@@ -71,14 +71,13 @@
     switch (longPress.state) {
         case UIGestureRecognizerStateBegan:
         {
-            if (self.delegate && [self.delegate respondsToSelector:@selector(beginResponseToLongPress)]) {
-                [self.delegate beginResponseToLongPress];
-            }
             CGPoint location = [longPress locationInView:self.collectionView];
             NSIndexPath* indexPath = [self.collectionView indexPathForItemAtPoint:location];
             if (!indexPath) return;
             if (indexPath.section > 0) return; // 长按其他分组，使无响应
-            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(beginResponseToLongPress)]) {
+                [self.delegate beginResponseToLongPress];
+            }
             self.currentIndexPath = indexPath;
             UICollectionViewCell* targetCell = [self.collectionView cellForItemAtIndexPath:self.currentIndexPath];
             //得到当前cell的映射(截图)
@@ -98,7 +97,7 @@
             self.mappingImageCell.center = point;
             NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
             if (indexPath == nil) return;
-            if (indexPath.section > 0) return;  // 拉倒其他分组，无操作
+            if (indexPath.section > 0) return;  // 拖动到其他分组，无操作
             if (![indexPath isEqual:self.currentIndexPath])
             {
                 //改变数据源
