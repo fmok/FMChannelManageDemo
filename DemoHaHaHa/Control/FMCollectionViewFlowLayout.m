@@ -42,7 +42,6 @@
 }
 
 #pragma mark - setup
-
 - (void)configureObserver{
     [self addObserver:self forKeyPath:@"collectionView" options:NSKeyValueObservingOptionNew context:nil];
 }
@@ -72,15 +71,15 @@
         case UIGestureRecognizerStateBegan:
         {
             CGPoint location = [longPress locationInView:self.collectionView];
-            NSIndexPath* indexPath = [self.collectionView indexPathForItemAtPoint:location];
+            NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
             if (!indexPath) return;
             if (indexPath.section > 0) return; // 长按其他分组，使无响应
             if (self.delegate && [self.delegate respondsToSelector:@selector(beginResponseToLongPress)]) {
                 [self.delegate beginResponseToLongPress];
             }
             self.currentIndexPath = indexPath;
-            UICollectionViewCell* targetCell = [self.collectionView cellForItemAtIndexPath:self.currentIndexPath];
-            //得到当前cell的映射(截图)
+            UICollectionViewCell *targetCell = [self.collectionView cellForItemAtIndexPath:self.currentIndexPath];
+            // 得到当前cell的映射(截图)
             UIView *cellView = [targetCell snapshotViewAfterScreenUpdates:YES];
             self.mappingImageCell = cellView;
             self.mappingImageCell.frame = cellView.frame;
@@ -93,14 +92,14 @@
         case UIGestureRecognizerStateChanged:
         {
             CGPoint point = [longPress locationInView:self.collectionView];
-            //更新cell的位置
+            // 更新cell的位置
             self.mappingImageCell.center = point;
             NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
             if (indexPath == nil) return;
             if (indexPath.section > 0) return;  // 拖动到其他分组，无操作
             if (![indexPath isEqual:self.currentIndexPath])
             {
-                //改变数据源
+                // 改变数据源
                 if (self.delegate && [self.delegate respondsToSelector:@selector(moveDataItem:toIndexPath:)]) {
                     [self.delegate moveDataItem:self.currentIndexPath toIndexPath:indexPath];
                 }
@@ -124,13 +123,8 @@
         }
             break;
         default:
-        {
-            
-        }
             break;
     }
-    
-    
 }
 
 @end

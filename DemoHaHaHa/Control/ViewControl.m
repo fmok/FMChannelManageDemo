@@ -173,8 +173,10 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 
 - (void)beginResponseToLongPress
 {
-    isEditing = YES;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kMyCollectionViewCellChangeTypeNotificationIdentifier object:@{@"type":@(MyCollectionViewCellTypeMul)}];
+    if (!isEditing) {
+        isEditing = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMyCollectionViewCellChangeTypeNotificationIdentifier object:@{@"type":@(MyCollectionViewCellTypeMul)}];
+    }
 }
 
 #pragma mark - FirsTitleSectionHeaderViewDelegate
