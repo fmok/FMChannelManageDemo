@@ -29,6 +29,8 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
     [self.vc.collectionView registerClass:[SecondTitleSectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSecondTitleSectionHeaderViewIdentifier];
 }
 
+#pragma mark - Private methods
+
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -135,7 +137,8 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 
 - (void)beginResponseToLongPress
 {
-    
+    isEditing = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMyCollectionViewCellChangeTypeNotificationIdentifier object:@{@"type":@(MyCollectionViewCellTypeMul)}];
 }
 
 #pragma mark - FirsTitleSectionHeaderViewDelegate
