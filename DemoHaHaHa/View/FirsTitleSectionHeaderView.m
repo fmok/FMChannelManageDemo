@@ -44,9 +44,15 @@
     [super updateConstraints];
 }
 
+#pragma mark - Public methods
 - (void)updateContent:(NSString *)contentText
 {
     self.titleLabel.text = contentText;
+}
+
+- (void)setEditSelectedState:(BOOL)state
+{
+    self.editBtn.selected = state;
 }
 
 #pragma mark - Events

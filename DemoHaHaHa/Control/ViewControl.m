@@ -8,6 +8,9 @@
 
 #import "ViewControl.h"
 
+#define TAG_first_header 100
+#define TAG_second_header 101
+
 NSString *const kMyCollectionViewCellIdentifier = @"MyCollectionViewCell";
 NSString *const kFirsTitleSectionHeaderViewIdentifier = @"FirsTitleSectionHeaderView";
 NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHeaderView";
@@ -115,12 +118,14 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
         FirsTitleSectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kFirsTitleSectionHeaderViewIdentifier forIndexPath:indexPath];
         headerView.currentStyle = FirsTitleSectionHeaderViewStyleEdit;
         headerView.delegate = self;
+        headerView.tag = TAG_first_header;
         [headerView updateContent:@"我订阅的频道"];
         return headerView;
     } else if (indexPath.section == 1) {
         FirsTitleSectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kFirsTitleSectionHeaderViewIdentifier forIndexPath:indexPath];
         headerView.currentStyle = FirsTitleSectionHeaderViewStyleNormal;
         headerView.delegate = self;
+        headerView.tag = TAG_second_header;
         [headerView updateContent:@"未订阅的频道"];
         return headerView;
     } else {
@@ -176,6 +181,8 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
     if (!isEditing) {
         isEditing = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kMyCollectionViewCellChangeTypeNotificationIdentifier object:@{@"type":@(MyCollectionViewCellTypeMul)}];
+        FirsTitleSectionHeaderView *headerView = (FirsTitleSectionHeaderView *)[self.vc.collectionView viewWithTag:TAG_first_header];
+        [headerView setEditSelectedState:isEditing];
     }
 }
 

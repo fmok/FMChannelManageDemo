@@ -25,5 +25,6 @@ typedef NS_ENUM(NSInteger, FirsTitleSectionHeaderViewStyle) {
 @property (nonatomic, assign) FirsTitleSectionHeaderViewStyle currentStyle;
 
 - (void)updateContent:(NSString *)contentText;
+- (void)setEditSelectedState:(BOOL)state;
 
 @end
