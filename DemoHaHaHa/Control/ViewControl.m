@@ -119,6 +119,7 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
         headerView.currentStyle = FirsTitleSectionHeaderViewStyleEdit;
         headerView.delegate = self;
         headerView.tag = TAG_first_header;
+        [headerView setEditSelectedState:isEditing];
         [headerView updateContent:@"我订阅的频道"];
         return headerView;
     } else if (indexPath.section == 1) {

@@ -117,7 +117,7 @@
                 self.mappingImageCell.center = cell.center;
             } completion:^(BOOL finished) {
                 [self.mappingImageCell removeFromSuperview];
-                cell.hidden           = NO;
+                cell.hidden = NO;
                 self.mappingImageCell = nil;
                 self.currentIndexPath = nil;
             }];
