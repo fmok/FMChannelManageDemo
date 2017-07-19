@@ -12,7 +12,11 @@
 #import "FirsTitleSectionHeaderView.h"
 #import "SecondTitleSectionHeaderView.h"
 
-@interface ViewControl : NSObject<UICollectionViewDelegate, UICollectionViewDataSource, FMCollectionViewFlowLayoutDelegate>
+@interface ViewControl : NSObject<
+    UICollectionViewDelegate,
+    UICollectionViewDataSource,
+    FMCollectionViewFlowLayoutDelegate,
+    FirsTitleSectionHeaderViewDelegate>
 
 @property (nonatomic, weak) MainViewController *vc;
 

@@ -17,6 +17,11 @@
 
 @implementation MyCollectionViewCell
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kMyCollectionViewCellChangeTypeNotificationIdentifier object:nil];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -27,6 +32,7 @@
         [self addSubview:self.titleLabel];
         [self addSubview:self.imgView];
         self.currentType = MyCollectionViewCellTypeDefault;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeType:) name:kMyCollectionViewCellChangeTypeNotificationIdentifier object:nil];
     }
     return self;
 }
@@ -79,6 +85,29 @@
     }
 }
 
+#pragma mark - Notification
+- (void)changeType:(NSNotification *)notifi
+{
+    if (self.currentType != MyCollectionViewCellTypeAdd) {
+        MyCollectionViewCellType type = [[notifi.object objectForKey:@"type"] integerValue];
+        switch (type) {
+            case MyCollectionViewCellTypeDefault:
+            {
+                self.currentType = MyCollectionViewCellTypeDefault;
+            }
+                break;
+            case MyCollectionViewCellTypeMul:
+            {
+                self.currentType = MyCollectionViewCellTypeMul;
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
 #pragma mark - getter & setter
 - (UILabel *)titleLabel
 {
@@ -99,6 +128,7 @@
 
 - (void)setCurrentType:(MyCollectionViewCellType)currentType
 {
+    _currentType = currentType;
     [self setImg:currentType];
 }
 

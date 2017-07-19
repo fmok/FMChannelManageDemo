@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define kMyCollectionViewCellChangeTypeNotificationIdentifier @"kMyCollectionViewCellChangeTypeNotificationIdentifier"
+
 typedef NS_ENUM(NSInteger, MyCollectionViewCellType) {
     MyCollectionViewCellTypeDefault = 1 << 0, // 无，默认
     MyCollectionViewCellTypeAdd = 1 << 1,  // 加号

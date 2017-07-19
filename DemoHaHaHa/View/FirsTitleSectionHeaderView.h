@@ -13,8 +13,15 @@ typedef NS_ENUM(NSInteger, FirsTitleSectionHeaderViewStyle) {
     FirsTitleSectionHeaderViewStyleEdit = 1 << 1
 };
 
+@protocol FirsTitleSectionHeaderViewDelegate <NSObject>
+
+- (void)clickEdit:(BOOL)isEdit;
+
+@end
+
 @interface FirsTitleSectionHeaderView : UICollectionReusableView
 
+@property (nonatomic, weak) id<FirsTitleSectionHeaderViewDelegate>delegate;
 @property (nonatomic, assign) FirsTitleSectionHeaderViewStyle currentStyle;
 
 - (void)updateContent:(NSString *)contentText;

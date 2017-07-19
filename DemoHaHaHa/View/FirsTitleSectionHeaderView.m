@@ -53,7 +53,9 @@
 - (void)editAction:(UIButton *)sender
 {
     sender.selected = !sender.selected;
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(clickEdit:)]) {
+        [self.delegate clickEdit:sender.selected];
+    }
 }
 
 #pragma mark - getter & setter
