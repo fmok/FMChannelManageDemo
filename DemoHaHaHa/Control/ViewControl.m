@@ -18,6 +18,7 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 @interface ViewControl()
 {
     BOOL isEditing;
+    __block BOOL isSubing;  // sub 动作中
 }
 
 @end
@@ -33,6 +34,55 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 }
 
 #pragma mark - Private methods
+- (void)subChannel:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
+{
+    isSubing = YES;
+    NSInteger sectionIndex = indexPath.section - 2;
+    NSMutableArray *tArr = [NSMutableArray arrayWithArray:self.vc.unSubDataArr[sectionIndex]];
+    NSLog(@"\n*** section: %@ , item: %@ , data: %@ ***\n", @(indexPath.section), @(indexPath.item), tArr[indexPath.item]);
+    // 1、更新本地数据源
+    [self.vc.subDataArr addObject:tArr[indexPath.item]];
+    [tArr removeObjectAtIndex:indexPath.item];
+    [self.vc.unSubDataArr replaceObjectAtIndex:sectionIndex withObject:tArr];
+    // 2、同步远端数据
+    // 3、更新UI
+    [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+    
+    /*
+    // 当前cell
+    MyCollectionViewCell *currentCell = (MyCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    UIView *currentCellView = [currentCell snapshotViewAfterScreenUpdates:YES];
+    currentCellView.frame = currentCell.frame;
+    [self.vc.collectionView addSubview:currentCellView];
+    
+    [self.vc.collectionView reloadData];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1/60.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        // 终点cell
+        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForItem:self.vc.subDataArr.count - 1 inSection:0];
+        MyCollectionViewCell *lastCell = (MyCollectionViewCell *)[collectionView cellForItemAtIndexPath:lastIndexPath];
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            currentCellView.frame = lastCell.frame;
+        } completion:^(BOOL finished) {
+            lastCell.hidden = NO;
+            isSubing = NO;
+            [currentCellView removeFromSuperview];
+        }];
+    });
+     */
+}
+
+- (void)unSubChannel:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"\n&&& section: %@ , item: %@ , data: %@ &&&\n", @(indexPath.section), @(indexPath.item), self.vc.subDataArr[indexPath.item]);
+    // 1、更新本地数据源
+    [self.vc.subDataArr removeObjectAtIndex:indexPath.item];
+    // 2、同步远端数据
+    // 3、更新UI
+    [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+}
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -48,27 +98,13 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
         case MyCollectionViewCellTypeAdd:
         {
             // 订阅频道
-            NSInteger sectionIndex = indexPath.section - 2;
-            NSMutableArray *tArr = [NSMutableArray arrayWithArray:self.vc.unSubDataArr[sectionIndex]];
-            NSLog(@"\n*** section: %@ , item: %@ , data: %@ ***\n", @(indexPath.section), @(indexPath.item), tArr[indexPath.item]);
-            // 1、更新本地数据源
-            [self.vc.subDataArr addObject:tArr[indexPath.item]];
-            [tArr removeObjectAtIndex:indexPath.item];
-            [self.vc.unSubDataArr replaceObjectAtIndex:sectionIndex withObject:tArr];
-            // 2、同步远端数据
-            // 3、更新UI
-            [self.vc.collectionView reloadData];
+            [self subChannel:collectionView indexPath:indexPath];
         }
             break;
         case MyCollectionViewCellTypeMul:
         {
             // 取消订阅
-            NSLog(@"\n&&& section: %@ , item: %@ , data: %@ &&&\n", @(indexPath.section), @(indexPath.item), self.vc.subDataArr[indexPath.item]);
-            // 1、更新本地数据源
-            [self.vc.subDataArr removeObjectAtIndex:indexPath.item];
-            // 2、同步远端数据
-            // 3、更新UI
-            [self.vc.collectionView reloadData];
+            [self unSubChannel:collectionView indexPath:indexPath];
         }
             break;
         default:
@@ -97,6 +133,11 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
         titleStr = self.vc.subDataArr[indexPath.item];
         [cell updateContent:titleStr];
         cell.currentType = (isEditing ? MyCollectionViewCellTypeMul : MyCollectionViewCellTypeDefault);
+        if (isSubing && indexPath.item >= self.vc.subDataArr.count - 1) {
+            cell.hidden = YES;
+        } else {
+            cell.hidden = NO;
+        }
     } else if (indexPath.section == 1) {
         cell = nil;
     } else {
