@@ -93,6 +93,7 @@
         {
             CGPoint point = [longPress locationInView:self.collectionView];
             // 更新cell的位置
+            if (self.mappingImageCell == nil) return;
             self.mappingImageCell.center = point;
             NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
             if (indexPath == nil) return;
