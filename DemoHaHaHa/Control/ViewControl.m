@@ -13,12 +13,10 @@
 
 NSString *const kMyCollectionViewCellIdentifier = @"MyCollectionViewCell";
 NSString *const kFirsTitleSectionHeaderViewIdentifier = @"FirsTitleSectionHeaderView";
-//NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHeaderView";
 
 @interface ViewControl()
 {
     BOOL isEditing;
-//    __block BOOL isSubing;  // sub 动作中
 }
 
 @end
@@ -30,7 +28,6 @@ NSString *const kFirsTitleSectionHeaderViewIdentifier = @"FirsTitleSectionHeader
 {
     [self.vc.collectionView registerClass:[MyCollectionViewCell class] forCellWithReuseIdentifier:kMyCollectionViewCellIdentifier];
     [self.vc.collectionView registerClass:[FirsTitleSectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kFirsTitleSectionHeaderViewIdentifier];
-//    [self.vc.collectionView registerClass:[SecondTitleSectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSecondTitleSectionHeaderViewIdentifier];
 }
 
 #pragma mark - Private methods
@@ -123,11 +120,6 @@ NSString *const kFirsTitleSectionHeaderViewIdentifier = @"FirsTitleSectionHeader
         titleStr = self.vc.subDataArr[indexPath.item];
         [cell updateContent:titleStr];
         cell.currentType = (isEditing ? MyCollectionViewCellTypeMul : MyCollectionViewCellTypeDefault);
-//        if (isSubing && indexPath.item >= self.vc.subDataArr.count - 1) {
-//            cell.hidden = YES;
-//        } else {
-//            cell.hidden = NO;
-//        }
     } else if (indexPath.section == 1) {
         titleStr = self.vc.unSubDataArr[indexPath.item];
         [cell updateContent:titleStr];
@@ -143,25 +135,22 @@ NSString *const kFirsTitleSectionHeaderViewIdentifier = @"FirsTitleSectionHeader
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
+    FirsTitleSectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kFirsTitleSectionHeaderViewIdentifier forIndexPath:indexPath];
+    headerView.delegate = self;
     if (indexPath.section == 0) {
-        FirsTitleSectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kFirsTitleSectionHeaderViewIdentifier forIndexPath:indexPath];
         headerView.currentStyle = FirsTitleSectionHeaderViewStyleEdit;
-        headerView.delegate = self;
         headerView.tag = TAG_first_header;
         [headerView setEditSelectedState:isEditing];
         [headerView updateContent:@"我订阅的频道"];
-        return headerView;
     } else if (indexPath.section == 1) {
-        FirsTitleSectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kFirsTitleSectionHeaderViewIdentifier forIndexPath:indexPath];
         headerView.currentStyle = FirsTitleSectionHeaderViewStyleNormal;
-        headerView.delegate = self;
         headerView.tag = TAG_second_header;
         [headerView updateContent:@"未订阅的频道"];
-        return headerView;
+    } else {
+        headerView = nil;
     }
-    return nil;
+    return headerView;
 }
-
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
