@@ -36,18 +36,19 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 #pragma mark - Private methods
 - (void)subChannel:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
 {
-    isSubing = YES;
-    NSInteger sectionIndex = indexPath.section - 2;
-    NSMutableArray *tArr = [NSMutableArray arrayWithArray:self.vc.unSubDataArr[sectionIndex]];
-    NSLog(@"\n*** section: %@ , item: %@ , data: %@ ***\n", @(indexPath.section), @(indexPath.item), tArr[indexPath.item]);
+//    isSubing = YES;
     // 1、更新本地数据源
-    [self.vc.subDataArr addObject:tArr[indexPath.item]];
-    [tArr removeObjectAtIndex:indexPath.item];
-    [self.vc.unSubDataArr replaceObjectAtIndex:sectionIndex withObject:tArr];
+    NSObject *obj = self.vc.unSubDataArr[indexPath.item];
+    [self.vc.unSubDataArr removeObjectAtIndex:indexPath.item];
     // 2、同步远端数据
     // 3、更新UI
-    [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
-    
+    [self.vc.collectionView performBatchUpdates:^{
+        [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+    } completion:^(BOOL finished) {
+        [self.vc.subDataArr addObject:obj];
+        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForItem:self.vc.subDataArr.count-1 inSection:0];
+        [self.vc.collectionView insertItemsAtIndexPaths:@[lastIndexPath]];
+    }];
     /*
     // 当前cell
     MyCollectionViewCell *currentCell = (MyCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
@@ -78,10 +79,17 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 {
     NSLog(@"\n&&& section: %@ , item: %@ , data: %@ &&&\n", @(indexPath.section), @(indexPath.item), self.vc.subDataArr[indexPath.item]);
     // 1、更新本地数据源
+    NSObject *obj = self.vc.subDataArr[indexPath.item];
     [self.vc.subDataArr removeObjectAtIndex:indexPath.item];
     // 2、同步远端数据
     // 3、更新UI
-    [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+    [self.vc.collectionView performBatchUpdates:^{
+        [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+    } completion:^(BOOL finished) {
+        [self.vc.unSubDataArr insertObject:obj atIndex:0];
+        NSIndexPath *firstIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
+        [self.vc.collectionView insertItemsAtIndexPaths:@[firstIndexPath]];
+    }];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -118,9 +126,7 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
     if (section == 0) {
         return self.vc.subDataArr.count;
     } else if (section == 1) {
-    } else {
-        NSArray *arr = self.vc.unSubDataArr[section-2];
-        return arr.count;
+        return self.vc.unSubDataArr.count;
     }
     return 0;
 }
@@ -133,15 +139,13 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
         titleStr = self.vc.subDataArr[indexPath.item];
         [cell updateContent:titleStr];
         cell.currentType = (isEditing ? MyCollectionViewCellTypeMul : MyCollectionViewCellTypeDefault);
-        if (isSubing && indexPath.item >= self.vc.subDataArr.count - 1) {
-            cell.hidden = YES;
-        } else {
-            cell.hidden = NO;
-        }
+//        if (isSubing && indexPath.item >= self.vc.subDataArr.count - 1) {
+//            cell.hidden = YES;
+//        } else {
+//            cell.hidden = NO;
+//        }
     } else if (indexPath.section == 1) {
-        cell = nil;
-    } else {
-        titleStr = self.vc.unSubDataArr[indexPath.section-2][indexPath.item];
+        titleStr = self.vc.unSubDataArr[indexPath.item];
         [cell updateContent:titleStr];
         cell.currentType = MyCollectionViewCellTypeAdd;
     }
@@ -150,7 +154,7 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView;
 {
-    return 1+1+self.vc.unSubDataArr.count;
+    return 2;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -169,10 +173,6 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
         headerView.delegate = self;
         headerView.tag = TAG_second_header;
         [headerView updateContent:@"未订阅的频道"];
-        return headerView;
-    } else {
-        SecondTitleSectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSecondTitleSectionHeaderViewIdentifier forIndexPath:indexPath];
-        [headerView updateContent:[NSString stringWithFormat:@"频道-%@", @(indexPath.section-2)]];
         return headerView;
     }
     return nil;
@@ -202,9 +202,6 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    if (section >= 2) {
-        return CGSizeMake(Screen_W, 30);
-    }
     return CGSizeMake(Screen_W, 50);
 }
 
