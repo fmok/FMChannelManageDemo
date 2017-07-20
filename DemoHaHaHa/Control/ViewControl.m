@@ -7,6 +7,7 @@
 //
 
 #import "ViewControl.h"
+#import "ChannelListViewController.h"
 
 #define TAG_first_header 100
 #define TAG_second_header 101
@@ -82,6 +83,8 @@ NSString *const kFirsTitleSectionHeaderViewIdentifier = @"FirsTitleSectionHeader
         case MyCollectionViewCellTypeDefault:
         {
             // 无
+            ChannelListViewController *vc = [[ChannelListViewController alloc] init];
+            [self.vc.navigationController pushViewController:vc animated:YES];
         }
             break;
         case MyCollectionViewCellTypeAdd:

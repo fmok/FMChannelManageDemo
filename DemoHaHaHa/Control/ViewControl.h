@@ -10,7 +10,6 @@
 #import "MainViewController.h"
 #import "MyCollectionViewCell.h"
 #import "FirsTitleSectionHeaderView.h"
-#import "SecondTitleSectionHeaderView.h"
 
 @interface ViewControl : NSObject<
     UICollectionViewDelegate,

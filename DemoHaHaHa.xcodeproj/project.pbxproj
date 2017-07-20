@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8437CE891F20809F00F04A11 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8437CE881F20809F00F04A11 /* 1.png */; };
+		8437CE8F1F2093B900F04A11 /* ChannellistControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8437CE8E1F2093B900F04A11 /* ChannellistControl.m */; };
+		8437CE921F2093D600F04A11 /* ChannelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8437CE911F2093D600F04A11 /* ChannelListViewController.m */; };
+		8437CE951F2097BE00F04A11 /* ChannelSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8437CE941F2097BE00F04A11 /* ChannelSectionHeaderView.m */; };
 		844020E31F1DDF3C000AC231 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 844020E21F1DDF3C000AC231 /* main.m */; };
 		844020E61F1DDF3C000AC231 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 844020E51F1DDF3C000AC231 /* AppDelegate.m */; };
 		844020EE1F1DDF3D000AC231 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844020ED1F1DDF3D000AC231 /* Assets.xcassets */; };
@@ -27,7 +30,6 @@
 		845CCE8D1F1DF69000DA02BA /* MyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCE8A1F1DF69000DA02BA /* MyCollectionViewCell.m */; };
 		845CCE901F1DF6A700DA02BA /* FMCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCE8F1F1DF6A700DA02BA /* FMCollectionViewFlowLayout.m */; };
 		845CCE931F1DF75700DA02BA /* FirsTitleSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCE921F1DF75700DA02BA /* FirsTitleSectionHeaderView.m */; };
-		845CCE961F1DFEEB00DA02BA /* SecondTitleSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCE951F1DFEEB00DA02BA /* SecondTitleSectionHeaderView.m */; };
 		845CCE981F1E092900DA02BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845CCE971F1E092900DA02BA /* Main.storyboard */; };
 		845CCE9E1F1E109500DA02BA /* add_channel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCE9A1F1E109500DA02BA /* add_channel@2x.png */; };
 		845CCE9F1F1E109500DA02BA /* add_channel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCE9B1F1E109500DA02BA /* add_channel@3x.png */; };
@@ -37,6 +39,12 @@
 
 /* Begin PBXFileReference section */
 		8437CE881F20809F00F04A11 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		8437CE8D1F2093B900F04A11 /* ChannellistControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannellistControl.h; sourceTree = "<group>"; };
+		8437CE8E1F2093B900F04A11 /* ChannellistControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannellistControl.m; sourceTree = "<group>"; };
+		8437CE901F2093D600F04A11 /* ChannelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelListViewController.h; sourceTree = "<group>"; };
+		8437CE911F2093D600F04A11 /* ChannelListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelListViewController.m; sourceTree = "<group>"; };
+		8437CE931F2097BE00F04A11 /* ChannelSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelSectionHeaderView.h; sourceTree = "<group>"; };
+		8437CE941F2097BE00F04A11 /* ChannelSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelSectionHeaderView.m; sourceTree = "<group>"; };
 		844020DE1F1DDF3C000AC231 /* DemoHaHaHa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoHaHaHa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844020E21F1DDF3C000AC231 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		844020E41F1DDF3C000AC231 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -80,8 +88,6 @@
 		845CCE8F1F1DF6A700DA02BA /* FMCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		845CCE911F1DF75700DA02BA /* FirsTitleSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirsTitleSectionHeaderView.h; sourceTree = "<group>"; };
 		845CCE921F1DF75700DA02BA /* FirsTitleSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirsTitleSectionHeaderView.m; sourceTree = "<group>"; };
-		845CCE941F1DFEEB00DA02BA /* SecondTitleSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondTitleSectionHeaderView.h; sourceTree = "<group>"; };
-		845CCE951F1DFEEB00DA02BA /* SecondTitleSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondTitleSectionHeaderView.m; sourceTree = "<group>"; };
 		845CCE971F1E092900DA02BA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		845CCE9A1F1E109500DA02BA /* add_channel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_channel@2x.png"; sourceTree = "<group>"; };
 		845CCE9B1F1E109500DA02BA /* add_channel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_channel@3x.png"; sourceTree = "<group>"; };
@@ -199,6 +205,8 @@
 				845CCE8F1F1DF6A700DA02BA /* FMCollectionViewFlowLayout.m */,
 				845CCE831F1DF69000DA02BA /* ViewControl.h */,
 				845CCE841F1DF69000DA02BA /* ViewControl.m */,
+				8437CE8D1F2093B900F04A11 /* ChannellistControl.h */,
+				8437CE8E1F2093B900F04A11 /* ChannellistControl.m */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -208,6 +216,8 @@
 			children = (
 				845CCE861F1DF69000DA02BA /* MainViewController.h */,
 				845CCE871F1DF69000DA02BA /* MainViewController.m */,
+				8437CE901F2093D600F04A11 /* ChannelListViewController.h */,
+				8437CE911F2093D600F04A11 /* ChannelListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -219,8 +229,8 @@
 				845CCE8A1F1DF69000DA02BA /* MyCollectionViewCell.m */,
 				845CCE911F1DF75700DA02BA /* FirsTitleSectionHeaderView.h */,
 				845CCE921F1DF75700DA02BA /* FirsTitleSectionHeaderView.m */,
-				845CCE941F1DFEEB00DA02BA /* SecondTitleSectionHeaderView.h */,
-				845CCE951F1DFEEB00DA02BA /* SecondTitleSectionHeaderView.m */,
+				8437CE931F2097BE00F04A11 /* ChannelSectionHeaderView.h */,
+				8437CE941F2097BE00F04A11 /* ChannelSectionHeaderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -315,15 +325,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				8443FA8E1F1F2D2600823121 /* ItemModel.m in Sources */,
+				8437CE8F1F2093B900F04A11 /* ChannellistControl.m in Sources */,
 				845CCE901F1DF6A700DA02BA /* FMCollectionViewFlowLayout.m in Sources */,
 				845CCE8C1F1DF69000DA02BA /* MainViewController.m in Sources */,
 				844021181F1DE223000AC231 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				844021161F1DE223000AC231 /* MASViewConstraint.m in Sources */,
 				844021111F1DE223000AC231 /* MASCompositeConstraint.m in Sources */,
 				844021171F1DE223000AC231 /* NSArray+MASAdditions.m in Sources */,
-				845CCE961F1DFEEB00DA02BA /* SecondTitleSectionHeaderView.m in Sources */,
 				845CCE931F1DF75700DA02BA /* FirsTitleSectionHeaderView.m in Sources */,
 				844020E61F1DDF3C000AC231 /* AppDelegate.m in Sources */,
+				8437CE921F2093D600F04A11 /* ChannelListViewController.m in Sources */,
+				8437CE951F2097BE00F04A11 /* ChannelSectionHeaderView.m in Sources */,
 				844021141F1DE223000AC231 /* MASLayoutConstraint.m in Sources */,
 				844020E31F1DDF3C000AC231 /* main.m in Sources */,
 				844021191F1DE223000AC231 /* View+MASAdditions.m in Sources */,
