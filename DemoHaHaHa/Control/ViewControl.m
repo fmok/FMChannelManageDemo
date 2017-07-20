@@ -13,12 +13,12 @@
 
 NSString *const kMyCollectionViewCellIdentifier = @"MyCollectionViewCell";
 NSString *const kFirsTitleSectionHeaderViewIdentifier = @"FirsTitleSectionHeaderView";
-NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHeaderView";
+//NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHeaderView";
 
 @interface ViewControl()
 {
     BOOL isEditing;
-    __block BOOL isSubing;  // sub 动作中
+//    __block BOOL isSubing;  // sub 动作中
 }
 
 @end
@@ -30,49 +30,28 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
 {
     [self.vc.collectionView registerClass:[MyCollectionViewCell class] forCellWithReuseIdentifier:kMyCollectionViewCellIdentifier];
     [self.vc.collectionView registerClass:[FirsTitleSectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kFirsTitleSectionHeaderViewIdentifier];
-    [self.vc.collectionView registerClass:[SecondTitleSectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSecondTitleSectionHeaderViewIdentifier];
+//    [self.vc.collectionView registerClass:[SecondTitleSectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSecondTitleSectionHeaderViewIdentifier];
 }
 
 #pragma mark - Private methods
 - (void)subChannel:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
 {
-//    isSubing = YES;
     // 1、更新本地数据源
     NSObject *obj = self.vc.unSubDataArr[indexPath.item];
     [self.vc.unSubDataArr removeObjectAtIndex:indexPath.item];
-    // 2、同步远端数据
-    // 3、更新UI
+    // 2、同步远端数据、更新UI
     [self.vc.collectionView performBatchUpdates:^{
-        [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
-    } completion:^(BOOL finished) {
+//        [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
         [self.vc.subDataArr addObject:obj];
-        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForItem:self.vc.subDataArr.count-1 inSection:0];
-        [self.vc.collectionView insertItemsAtIndexPaths:@[lastIndexPath]];
+//        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForItem:self.vc.subDataArr.count-1 inSection:0];
+//        [self.vc.collectionView insertItemsAtIndexPaths:@[lastIndexPath]];
+        NSIndexPath *sourceIndexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:1];
+        NSIndexPath *destinationIndexPath = [NSIndexPath indexPathForItem:self.vc.subDataArr.count-1 inSection:0];
+        [self.vc.collectionView moveItemAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    } completion:^(BOOL finished) {
+        NSIndexSet *set = [NSIndexSet indexSetWithIndex:0];
+        [self.vc.collectionView reloadSections:set];
     }];
-    /*
-    // 当前cell
-    MyCollectionViewCell *currentCell = (MyCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    UIView *currentCellView = [currentCell snapshotViewAfterScreenUpdates:YES];
-    currentCellView.frame = currentCell.frame;
-    [self.vc.collectionView addSubview:currentCellView];
-    
-    [self.vc.collectionView reloadData];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1/60.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        // 终点cell
-        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForItem:self.vc.subDataArr.count - 1 inSection:0];
-        MyCollectionViewCell *lastCell = (MyCollectionViewCell *)[collectionView cellForItemAtIndexPath:lastIndexPath];
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            currentCellView.frame = lastCell.frame;
-        } completion:^(BOOL finished) {
-            lastCell.hidden = NO;
-            isSubing = NO;
-            [currentCellView removeFromSuperview];
-        }];
-    });
-     */
 }
 
 - (void)unSubChannel:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
@@ -84,11 +63,16 @@ NSString *const kSecondTitleSectionHeaderViewIdentifier = @"SecondTitleSectionHe
     // 2、同步远端数据
     // 3、更新UI
     [self.vc.collectionView performBatchUpdates:^{
-        [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
-    } completion:^(BOOL finished) {
+//        [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
         [self.vc.unSubDataArr insertObject:obj atIndex:0];
-        NSIndexPath *firstIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
-        [self.vc.collectionView insertItemsAtIndexPaths:@[firstIndexPath]];
+//        NSIndexPath *firstIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
+//        [self.vc.collectionView insertItemsAtIndexPaths:@[firstIndexPath]];
+        NSIndexPath *sourceIndexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:0];
+        NSIndexPath *destinationIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
+        [self.vc.collectionView moveItemAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    } completion:^(BOOL finished) {
+        NSIndexSet *set = [NSIndexSet indexSetWithIndex:1];
+        [self.vc.collectionView reloadSections:set];
     }];
 }
 
