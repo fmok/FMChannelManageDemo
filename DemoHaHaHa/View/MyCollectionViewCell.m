@@ -89,22 +89,8 @@
 - (void)changeType:(NSNotification *)notifi
 {
     if (self.currentType != MyCollectionViewCellTypeAdd) {
-        MyCollectionViewCellType type = [[notifi.object objectForKey:@"type"] integerValue];
-        switch (type) {
-            case MyCollectionViewCellTypeDefault:
-            {
-                self.currentType = MyCollectionViewCellTypeDefault;
-            }
-                break;
-            case MyCollectionViewCellTypeMul:
-            {
-                self.currentType = MyCollectionViewCellTypeMul;
-            }
-                break;
-                
-            default:
-                break;
-        }
+        MyCollectionViewCellType type = (MyCollectionViewCellType)[[notifi.object objectForKey:@"type"] integerValue];
+        self.currentType = type;
     }
 }
 
