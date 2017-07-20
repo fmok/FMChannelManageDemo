@@ -83,6 +83,7 @@
             UIView *cellView = [targetCell snapshotViewAfterScreenUpdates:YES];
             self.mappingImageCell = cellView;
             self.mappingImageCell.frame = cellView.frame;
+            self.mappingImageCell.alpha = 0.5;
             targetCell.hidden = YES;
             [self.collectionView addSubview:self.mappingImageCell];
             
