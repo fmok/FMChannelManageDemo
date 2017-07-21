@@ -35,6 +35,7 @@
 		845CCE9F1F1E109500DA02BA /* add_channel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCE9B1F1E109500DA02BA /* add_channel@3x.png */; };
 		845CCEA01F1E109500DA02BA /* mul_channel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCE9C1F1E109500DA02BA /* mul_channel@2x.png */; };
 		845CCEA11F1E109500DA02BA /* mul_channel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCE9D1F1E109500DA02BA /* mul_channel@3x.png */; };
+		84ED86181F21DCF200ED281A /* ChannelTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ED86171F21DCF200ED281A /* ChannelTableHeaderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +94,8 @@
 		845CCE9B1F1E109500DA02BA /* add_channel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_channel@3x.png"; sourceTree = "<group>"; };
 		845CCE9C1F1E109500DA02BA /* mul_channel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mul_channel@2x.png"; sourceTree = "<group>"; };
 		845CCE9D1F1E109500DA02BA /* mul_channel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mul_channel@3x.png"; sourceTree = "<group>"; };
+		84ED86161F21DCF200ED281A /* ChannelTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelTableHeaderView.h; sourceTree = "<group>"; };
+		84ED86171F21DCF200ED281A /* ChannelTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelTableHeaderView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +234,8 @@
 				845CCE921F1DF75700DA02BA /* FirsTitleSectionHeaderView.m */,
 				8437CE931F2097BE00F04A11 /* ChannelSectionHeaderView.h */,
 				8437CE941F2097BE00F04A11 /* ChannelSectionHeaderView.m */,
+				84ED86161F21DCF200ED281A /* ChannelTableHeaderView.h */,
+				84ED86171F21DCF200ED281A /* ChannelTableHeaderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				845CCE8B1F1DF69000DA02BA /* ViewControl.m in Sources */,
 				844021131F1DE223000AC231 /* MASConstraintMaker.m in Sources */,
 				845CCE8D1F1DF69000DA02BA /* MyCollectionViewCell.m in Sources */,
+				84ED86181F21DCF200ED281A /* ChannelTableHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

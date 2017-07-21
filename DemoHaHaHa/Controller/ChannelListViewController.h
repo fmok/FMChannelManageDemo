@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ChannelSectionHeaderView.h"
+#import "ChannelTableHeaderView.h"
 
 @interface ChannelListViewController : UIViewController
 
 @property (nonatomic, strong) UITableView *channelListView;
+@property (nonatomic, strong) ChannelTableHeaderView *tableHeaderView;
 
 @end

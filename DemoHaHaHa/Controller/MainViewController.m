@@ -10,7 +10,7 @@
 #import "FMCollectionViewFlowLayout.h"
 #import "ViewControl.h"
 
-@interface MainViewController ()
+@interface MainViewController ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) ViewControl *control;
 
@@ -28,11 +28,29 @@
                                              @"**26**", @"**27**", @"**28**", @"**29**", @"**30**", @"**31**",
                                              @"**32**", @"**33**", @"**34**", @"**35**"]];
     [self configeNav];
+    [self fullScreenPop];
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(weakSelf.view);
     }];
     [self.control registerCell];
+}
+
+- (void)fullScreenPop
+{
+    id target = self.navigationController.interactivePopGestureRecognizer.delegate;
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:NSSelectorFromString(@"handleNavigationTransition:")];
+    pan.delegate = self;
+    [self.view addGestureRecognizer:pan];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if (self.childViewControllers.count == 1) {
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - Private methods

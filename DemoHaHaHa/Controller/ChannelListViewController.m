@@ -9,7 +9,7 @@
 #import "ChannelListViewController.h"
 #import "ChannellistControl.h"
 
-@interface ChannelListViewController ()<UIGestureRecognizerDelegate>
+@interface ChannelListViewController ()
 
 @property (nonatomic, strong) ChannellistControl *control;
 
@@ -21,7 +21,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    [self fullScreenPop];
     WS(weakSelf);
     [self.view addSubview:self.channelListView];
     [self.channelListView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -29,23 +28,6 @@
     }];
     [self.control registerCell];
     [self.control loadData];
-}
-
-- (void)fullScreenPop
-{
-    id target = self.navigationController.interactivePopGestureRecognizer.delegate;
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:NSSelectorFromString(@"handleNavigationTransition:")];
-    pan.delegate = self;
-    [self.view addGestureRecognizer:pan];
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-}
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    if (self.childViewControllers.count == 1) {
-        return NO;
-    }
-    return YES;
 }
 
 #pragma mark - getter & setter
@@ -67,8 +49,19 @@
         _channelListView.dataSource = self.control;
         _channelListView.showsHorizontalScrollIndicator = NO;
         _channelListView.showsVerticalScrollIndicator = NO;
+        _channelListView.tableHeaderView = self.tableHeaderView;
     }
     return _channelListView;
+}
+
+- (ChannelTableHeaderView *)tableHeaderView
+{
+    if (!_tableHeaderView) {
+        _tableHeaderView = [[ChannelTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, 60)];
+        [_tableHeaderView updateContent:@"编辑我订阅的频道"];
+        [_tableHeaderView addTarget:self.control action:@selector(toEditChannel) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _tableHeaderView;
 }
 
 - (void)didReceiveMemoryWarning {

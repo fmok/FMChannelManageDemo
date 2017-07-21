@@ -15,5 +15,6 @@
 
 - (void)registerCell;
 - (void)loadData;
+- (void)toEditChannel;
 
 @end

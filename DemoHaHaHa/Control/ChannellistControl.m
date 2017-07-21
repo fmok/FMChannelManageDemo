@@ -7,6 +7,7 @@
 //
 
 #import "ChannellistControl.h"
+#import "MainViewController.h"
 
 #define kCellIdentifier  @"cell"
 #define kChannelSectionHeaderViewidentifier @"ChannelSectionHeaderView"
@@ -34,6 +35,12 @@
         [self.channelCountDict setObject:@(10) forKey:@(i)];
         [self.channelFoldDict setObject:@(0) forKey:@(i)];  // 0: 关闭  1: 打开
     }
+}
+
+- (void)toEditChannel
+{
+    MainViewController *vc = [[MainViewController alloc] init];
+    [self.vc.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - ChannelSectionHeaderViewDelegate
