@@ -48,23 +48,28 @@
 - (void)foldChannel:(ChannelSectionHeaderViewType)type tag:(NSInteger)tag
 {
     NSLog(@"\n*** tag:%@ ***\n", @(tag));
+    NSInteger index = tag - 100;
     switch (type) {
         case ChannelSectionHeaderViewTypeClose:
         {
-            [self.channelFoldDict setObject:@(0) forKey:@(tag-100)];
+            [self.channelFoldDict setObject:@(0) forKey:@(index)];
         }
             break;
         case ChannelSectionHeaderViewTypeOpen:
         {
-            [self.channelFoldDict setObject:@(1) forKey:@(tag-100)];
+            [self.channelFoldDict setObject:@(1) forKey:@(index)];
         }
             break;
             
         default:
             break;
     }
-    NSIndexSet *set = [NSIndexSet indexSetWithIndex:tag-100];
+    NSIndexSet *set = [NSIndexSet indexSetWithIndex:index];
     [self.vc.channelListView reloadSections:set withRowAnimation:UITableViewRowAnimationFade];
+    if (type == ChannelSectionHeaderViewTypeOpen) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index];
+        [self.vc.channelListView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 #pragma mark - UITableViewDelegate
