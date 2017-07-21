@@ -43,9 +43,8 @@
         make.top.and.bottom.equalTo(weakSelf);
     }];
     [self.foldBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf).offset(10.f);
-        make.top.and.bottom.equalTo(weakSelf);
-        make.width.mas_equalTo(44.f);
+        make.right.equalTo(weakSelf).offset(-10.f);
+        make.centerY.equalTo(weakSelf);
     }];
     [self.bottomLine mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.and.bottom.and.right.equalTo(weakSelf);
@@ -69,14 +68,6 @@
 #pragma mark - Private methods
 
 #pragma mark - Events
-//- (void)foldAction:(UIButton *)sender
-//{
-//    sender.selected = !sender.selected;
-//    self.currentType = (sender.selected ? ChannelSectionHeaderViewTypeOpen : ChannelSectionHeaderViewTypeClose);
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(foldChannel:tag:)]) {
-//        [self.delegate foldChannel:self.currentType tag:self.tag];
-//    }
-//}
 - (void)foldAction:(UITapGestureRecognizer *)tap
 {
     self.foldBtn.selected = !self.foldBtn.selected;
@@ -102,11 +93,10 @@
 {
     if (!_foldBtn) {
         _foldBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_foldBtn setTitle:@"^" forState:UIControlStateNormal];
-        [_foldBtn setTitle:@"v" forState:UIControlStateSelected];
+        [_foldBtn setImage:[UIImage imageNamed:@"key_close"] forState:UIControlStateNormal];
+        [_foldBtn setImage:[UIImage imageNamed:@"key_open"] forState:UIControlStateSelected];
         _foldBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [_foldBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        [_foldBtn addTarget:self action:@selector(foldAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _foldBtn;
 }

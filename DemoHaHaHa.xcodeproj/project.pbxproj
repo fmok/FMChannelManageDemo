@@ -36,6 +36,8 @@
 		845CCEA01F1E109500DA02BA /* mul_channel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCE9C1F1E109500DA02BA /* mul_channel@2x.png */; };
 		845CCEA11F1E109500DA02BA /* mul_channel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCE9D1F1E109500DA02BA /* mul_channel@3x.png */; };
 		84ED86181F21DCF200ED281A /* ChannelTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ED86171F21DCF200ED281A /* ChannelTableHeaderView.m */; };
+		84ED86211F2203FB00ED281A /* key_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 84ED861F1F2203FB00ED281A /* key_close.png */; };
+		84ED86221F2203FB00ED281A /* key_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 84ED86201F2203FB00ED281A /* key_open.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +98,8 @@
 		845CCE9D1F1E109500DA02BA /* mul_channel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mul_channel@3x.png"; sourceTree = "<group>"; };
 		84ED86161F21DCF200ED281A /* ChannelTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelTableHeaderView.h; sourceTree = "<group>"; };
 		84ED86171F21DCF200ED281A /* ChannelTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelTableHeaderView.m; sourceTree = "<group>"; };
+		84ED861F1F2203FB00ED281A /* key_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_close.png; sourceTree = "<group>"; };
+		84ED86201F2203FB00ED281A /* key_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_open.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +247,8 @@
 		845CCE991F1E109500DA02BA /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				84ED861F1F2203FB00ED281A /* key_close.png */,
+				84ED86201F2203FB00ED281A /* key_open.png */,
 				8437CE881F20809F00F04A11 /* 1.png */,
 				845CCE9A1F1E109500DA02BA /* add_channel@2x.png */,
 				845CCE9B1F1E109500DA02BA /* add_channel@3x.png */,
@@ -312,11 +318,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				845CCE9E1F1E109500DA02BA /* add_channel@2x.png in Resources */,
+				84ED86221F2203FB00ED281A /* key_open.png in Resources */,
 				8437CE891F20809F00F04A11 /* 1.png in Resources */,
 				845CCE981F1E092900DA02BA /* Main.storyboard in Resources */,
 				844020F11F1DDF3D000AC231 /* LaunchScreen.storyboard in Resources */,
 				845CCE9F1F1E109500DA02BA /* add_channel@3x.png in Resources */,
 				845CCEA11F1E109500DA02BA /* mul_channel@3x.png in Resources */,
+				84ED86211F2203FB00ED281A /* key_close.png in Resources */,
 				844020EE1F1DDF3D000AC231 /* Assets.xcassets in Resources */,
 				845CCEA01F1E109500DA02BA /* mul_channel@2x.png in Resources */,
 			);
