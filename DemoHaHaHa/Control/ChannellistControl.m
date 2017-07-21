@@ -40,6 +40,7 @@
 - (void)toEditChannel
 {
     MainViewController *vc = [[MainViewController alloc] init];
+    vc.title = @"频道订阅";
     [self.vc.navigationController pushViewController:vc animated:YES];
 }
 
@@ -99,6 +100,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    UIViewController *vc = [[UIViewController alloc] init];
+    vc.view.backgroundColor = [UIColor whiteColor];
+    vc.title = [NSString stringWithFormat:@"%@ - %@", @(indexPath.section), @(indexPath.row)];
+    [self.vc.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UITableViewDataSource

@@ -27,7 +27,7 @@
                                              @"**18**", @"**19**", @"**20**", @"**21**", @"**22**", @"**23**", @"**24**", @"**25**",
                                              @"**26**", @"**27**", @"**28**", @"**29**", @"**30**", @"**31**",
                                              @"**32**", @"**33**", @"**34**", @"**35**"]];
-    [self configeNav];
+//    [self configeNav];
     [self fullScreenPop];
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,16 +54,16 @@
 }
 
 #pragma mark - Private methods
-- (void)configeNav
-{
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickLogo)];
-}
+//- (void)configeNav
+//{
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickLogo)];
+//}
 
 #pragma mark - Events
-- (void)clickLogo
-{
-    NSLog(@"\n*** click logo ***\n");
-}
+//- (void)clickLogo
+//{
+//    NSLog(@"\n*** click logo ***\n");
+//}
 
 #pragma mark - getter & setter
 - (UICollectionView *)collectionView

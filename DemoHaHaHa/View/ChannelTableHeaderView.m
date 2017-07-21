@@ -33,7 +33,7 @@
     WS(weakSelf);
     [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf).offset(10.f);
-        make.top.and.bottom.and.right.equalTo(weakSelf);
+        make.top.and.bottom.equalTo(weakSelf);
     }];
     [self.bottomLine mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.and.bottom.equalTo(weakSelf);

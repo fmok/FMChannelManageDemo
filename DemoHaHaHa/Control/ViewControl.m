@@ -73,6 +73,16 @@ NSString *const kFirsTitleSectionHeaderViewIdentifier = @"FirsTitleSectionHeader
     }];
 }
 
+- (void)setEditState
+{
+    if (!isEditing) {
+        isEditing = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMyCollectionViewCellChangeTypeNotificationIdentifier object:@{@"type":@(MyCollectionViewCellTypeMul)}];
+        FirsTitleSectionHeaderView *headerView = (FirsTitleSectionHeaderView *)[self.vc.collectionView viewWithTag:TAG_first_header];
+        [headerView setEditSelectedState:isEditing];
+    }
+}
+
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -82,6 +92,7 @@ NSString *const kFirsTitleSectionHeaderViewIdentifier = @"FirsTitleSectionHeader
         case MyCollectionViewCellTypeDefault:
         {
             // 无
+            [self setEditState];
         }
             break;
         case MyCollectionViewCellTypeAdd:
@@ -190,12 +201,7 @@ NSString *const kFirsTitleSectionHeaderViewIdentifier = @"FirsTitleSectionHeader
 
 - (void)beginResponseToLongPress
 {
-    if (!isEditing) {
-        isEditing = YES;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kMyCollectionViewCellChangeTypeNotificationIdentifier object:@{@"type":@(MyCollectionViewCellTypeMul)}];
-        FirsTitleSectionHeaderView *headerView = (FirsTitleSectionHeaderView *)[self.vc.collectionView viewWithTag:TAG_first_header];
-        [headerView setEditSelectedState:isEditing];
-    }
+    [self setEditState];
 }
 
 #pragma mark - FirsTitleSectionHeaderViewDelegate
