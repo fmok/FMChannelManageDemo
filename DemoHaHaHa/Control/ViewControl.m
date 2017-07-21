@@ -33,43 +33,35 @@ NSString *const kFirsTitleSectionHeaderViewIdentifier = @"FirsTitleSectionHeader
 #pragma mark - Private methods
 - (void)subChannel:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
 {
-    // 1、更新本地数据源
-    NSObject *obj = self.vc.unSubDataArr[indexPath.item];
+    [self.vc.subDataArr addObject:self.vc.unSubDataArr[indexPath.item]];
     [self.vc.unSubDataArr removeObjectAtIndex:indexPath.item];
-    // 2、同步远端数据、更新UI
+    
+    NSIndexPath *sourceIndexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:1];
+    NSIndexPath *destinationIndexPath = [NSIndexPath indexPathForItem:self.vc.subDataArr.count-1 inSection:0];
+    
+    WS(weakSelf);
     [self.vc.collectionView performBatchUpdates:^{
-//        [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
-        [self.vc.subDataArr addObject:obj];
-//        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForItem:self.vc.subDataArr.count-1 inSection:0];
-//        [self.vc.collectionView insertItemsAtIndexPaths:@[lastIndexPath]];
-        NSIndexPath *sourceIndexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:1];
-        NSIndexPath *destinationIndexPath = [NSIndexPath indexPathForItem:self.vc.subDataArr.count-1 inSection:0];
-        [self.vc.collectionView moveItemAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+        [weakSelf.vc.collectionView moveItemAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
     } completion:^(BOOL finished) {
-        NSIndexSet *set = [NSIndexSet indexSetWithIndex:0];
-        [self.vc.collectionView reloadSections:set];
+        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:weakSelf.vc.subDataArr.count-1 inSection:0];
+        [weakSelf.vc.collectionView reloadItemsAtIndexPaths:@[lastIndexPath]];
     }];
 }
 
 - (void)unSubChannel:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"\n&&& section: %@ , item: %@ , data: %@ &&&\n", @(indexPath.section), @(indexPath.item), self.vc.subDataArr[indexPath.item]);
-    // 1、更新本地数据源
-    NSObject *obj = self.vc.subDataArr[indexPath.item];
+    [self.vc.unSubDataArr insertObject:self.vc.subDataArr[indexPath.item] atIndex:0];
     [self.vc.subDataArr removeObjectAtIndex:indexPath.item];
-    // 2、同步远端数据
-    // 3、更新UI
+    
+    NSIndexPath *sourceIndexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:0];
+    NSIndexPath *destinationIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
+    
+    WS(weakSelf);
     [self.vc.collectionView performBatchUpdates:^{
-//        [self.vc.collectionView deleteItemsAtIndexPaths:@[indexPath]];
-        [self.vc.unSubDataArr insertObject:obj atIndex:0];
-//        NSIndexPath *firstIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
-//        [self.vc.collectionView insertItemsAtIndexPaths:@[firstIndexPath]];
-        NSIndexPath *sourceIndexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:0];
-        NSIndexPath *destinationIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
-        [self.vc.collectionView moveItemAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+        [weakSelf.vc.collectionView moveItemAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
     } completion:^(BOOL finished) {
-        NSIndexSet *set = [NSIndexSet indexSetWithIndex:1];
-        [self.vc.collectionView reloadSections:set];
+        NSIndexPath *firstIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+        [weakSelf.vc.collectionView reloadItemsAtIndexPaths:@[firstIndexPath]];
     }];
 }
 
