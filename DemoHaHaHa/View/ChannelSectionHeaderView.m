@@ -95,6 +95,7 @@
         _foldBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_foldBtn setImage:[UIImage imageNamed:@"key_close"] forState:UIControlStateNormal];
         [_foldBtn setImage:[UIImage imageNamed:@"key_open"] forState:UIControlStateSelected];
+        [_foldBtn setShowsTouchWhenHighlighted:YES];
         _foldBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [_foldBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
