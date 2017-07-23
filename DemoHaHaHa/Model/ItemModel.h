@@ -12,5 +12,7 @@
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *uniStr;
+@property (nonatomic, copy) NSString *is_hot;
+@property (nonatomic, copy) NSString *category;
 
 @end
