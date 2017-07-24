@@ -84,6 +84,10 @@
      订阅： add 到 subArr 的最后一个
      取消订阅： 根据取消 itemModel 的 category 在 unSubDic 中根据键值对找到对应的 数组，然后将此 itemMode insert 到该数组的首位
      
+     categoryDict   {
+                        category: section
+                    }
+     在 unSubArr 中，对应数据与UI的关系，取消订阅时，通过category找到section
      */
     [self.unSubDataArr addObjectsFromArray:@[@[@"**11**", @"**12**", @"**13**", @"**14**", @"**15**", @"**16**", @"**17**"],
                                              @[@"**18**", @"**19**", @"**20**", @"**21**", @"**22**", @"**23**", @"**24**", @"**25**"],
